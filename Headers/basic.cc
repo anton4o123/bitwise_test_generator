@@ -31,15 +31,21 @@ bool start_SDL() {
 	SDL_EnableUNICODE(SDL_ENABLE);
 
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
-	if( screen == NULL ) {
+	font=TTF_OpenFont("files/cour.ttf", 18);
+	if(screen==NULL || font==NULL) {
 		return false;
 	}
-	SDL_WM_SetCaption("Sudoku solver", NULL);
+	
+	SDL_WM_SetCaption("Test generator", NULL);
 
 	return true;
 }
 
 bool load_files() {
+	text=TTF_RenderText_Solid(font, "Number of required tests:", textColor);
+	if(text==NULL) {
+		return false;
+	}
 	
 	return true;
 }

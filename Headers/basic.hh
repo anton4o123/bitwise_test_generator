@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -15,7 +16,8 @@ const int SCREEN_WIDTH=640;
 const int SCREEN_HEIGHT=480;
 const int SCREEN_BPP=32;
 
-extern SDL_Surface *screen;
+extern SDL_Surface* screen;
+extern SDL_Surface* text;
 
 extern TTF_Font* font;
 
