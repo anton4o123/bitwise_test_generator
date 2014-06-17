@@ -63,6 +63,14 @@ int main() {
 	for(int i=0;i<task_rows.size();++i) {
 		cout << task_rows[i] << endl;
 	}
-		
+	cout << endl;
+	
+	generate_result_tasks(true, 50, 200, true);
+	for(int i=0;i<task_rows.size();++i) {
+		cout << task_rows[i] << endl;
+	}
+	
+	generate_gcc_test_file();
+	
 	return 0;
 }

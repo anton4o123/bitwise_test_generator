@@ -87,3 +87,44 @@ void generate_if_statement() {
 	task_rows.push_back("a=2;");
 	task_rows.push_back("}");
 }
+
+void generate_result_tasks(bool INT, int down_boundary, int up_boundary, bool XOR) {
+	stringstream row;
+	short shift_odd, shift_even;
+	
+	task_rows.clear();
+	task_rows.push_back("result=? ........");
+	if(!INT) {
+		row << "long value1=0x" << std::hex << rand() << ";";
+		task_rows.push_back(row.str());
+		row.str("");
+		row << "long value2=0x" << rand() << std::dec << ";";
+	} else {
+		row << "long value1=" << (rand()/(RAND_MAX/(up_boundary-down_boundary))+down_boundary) << ";";
+		task_rows.push_back(row.str());
+		row.str("");
+		row << "long value2=" << (rand()/(RAND_MAX/(up_boundary-down_boundary))+down_boundary) << ";";
+	}
+	task_rows.push_back(row.str());
+	row.str("");
+	do {
+		shift_odd=rand()/(RAND_MAX/14)+1;
+		shift_even=rand()/(RAND_MAX/14)+1;
+	} while(shift_odd%2==0 || shift_even%2==1);
+	if(XOR) {
+		row << "int result=(value1<<" << shift_odd << ")^(value2>>" << shift_even << ");";
+	} else {
+		row << "int result=(value1<<" << shift_odd << ")|(value2>>" << shift_even << ");";
+	}
+	task_rows.push_back(row.str());
+}
+
+void get_gcc_test_file_result() {
+	ofstream out("test.c");
+	
+	out << "#include <stdio.h>\nvoid main() {" << endl;
+	for(short i=1;i<task_rows.size();++i) {
+		out << task_rows[i] << endl;
+	}
+	out << "}" << endl;
+}
