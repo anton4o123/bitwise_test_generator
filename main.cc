@@ -14,6 +14,7 @@ void apply_all() {
 }
 
 int main() {
+	srand((unsigned)time(NULL));
 	int number_of_tests=1;
 	/*
 	if(!start_SDL() || !load_files()) {
@@ -34,7 +35,7 @@ int main() {
 	
 	clean_up();
 	*/
-	generate_a();
+	generate_a_b(false);
 	for(int i=0;i<4;++i) {
 		cout << task_rows[i] << endl;
 	}

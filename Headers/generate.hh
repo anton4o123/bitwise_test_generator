@@ -5,6 +5,9 @@
 
 extern vector<string> task_rows;
 
-void generate_a();
+//---------------------
+// name-generate
+//---------------------
+void generate_a_b(bool a);
 
 #endif
