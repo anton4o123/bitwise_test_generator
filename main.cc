@@ -35,8 +35,19 @@ int main() {
 	
 	clean_up();
 	*/
+	generate_a_b(true);
+	for(int i=0;i<task_rows.size();++i) {
+		cout << task_rows[i] << endl;
+	}
+	cout << endl;
+	
 	generate_a_b(false);
-	for(int i=0;i<4;++i) {
+	for(int i=0;i<task_rows.size();++i) {
+		cout << task_rows[i] << endl;
+	}
+	
+	generate_logic_and_xor(false);
+	for(int i=0;i<task_rows.size();++i) {
 		cout << task_rows[i] << endl;
 	}
 	
