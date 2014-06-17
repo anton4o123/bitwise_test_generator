@@ -45,8 +45,15 @@ int main() {
 	for(int i=0;i<task_rows.size();++i) {
 		cout << task_rows[i] << endl;
 	}
+	cout <<  endl;
 	
 	generate_logic_and_xor(false);
+	for(int i=0;i<task_rows.size();++i) {
+		cout << task_rows[i] << endl;
+	}
+	cout << endl;
+	
+	generate_bitwise_one();
 	for(int i=0;i<task_rows.size();++i) {
 		cout << task_rows[i] << endl;
 	}

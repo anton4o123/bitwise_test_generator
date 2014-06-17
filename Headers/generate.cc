@@ -61,3 +61,12 @@ void generate_logic_and_xor(bool AND) {
 		task_rows.push_back("int AND=a^b;");
 	}
 }
+
+void generate_bitwise_one() {
+	stringstream row;
+	
+	task_rows.clear();
+	task_rows.push_back("bit=?    ........");
+	row << "int bit = 0x" << std::hex << (rand()/(RAND_MAX/65536)) << " | (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ");";
+	task_rows.push_back(row.str());
+}

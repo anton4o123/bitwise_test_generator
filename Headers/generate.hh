@@ -11,5 +11,6 @@ extern vector<string> task_rows;
 void generate_a_b(bool a);
 void generate_two_easy_hex();
 void generate_logic_and_xor(bool AND);
+void generate_bitwise_one();
 
 #endif
