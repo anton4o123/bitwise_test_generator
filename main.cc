@@ -57,6 +57,12 @@ int main() {
 	for(int i=0;i<task_rows.size();++i) {
 		cout << task_rows[i] << endl;
 	}
+	cout << endl;
 	
+	generate_if_statement();
+	for(int i=0;i<task_rows.size();++i) {
+		cout << task_rows[i] << endl;
+	}
+		
 	return 0;
 }

@@ -70,3 +70,20 @@ void generate_bitwise_one() {
 	row << "int bit = 0x" << std::hex << (rand()/(RAND_MAX/65536)) << " | (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ");";
 	task_rows.push_back(row.str());
 }
+
+void generate_if_statement() {
+	stringstream row;
+	
+	task_rows.clear();
+	task_rows.push_back("a=?      ........");
+	row << "long value=0x" << std::hex << (rand()) << ";";
+	task_rows.push_back(row.str());
+	row.str("");
+	task_rows.push_back("int a=0;");
+	row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")) {";
+	task_rows.push_back(row.str());
+	task_rows.push_back("a=1;");
+	task_rows.push_back("} else {");
+	task_rows.push_back("a=2;");
+	task_rows.push_back("}");
+}
