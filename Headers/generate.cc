@@ -71,7 +71,7 @@ void generate_bitwise_one() {
 	task_rows.push_back(row.str());
 }
 
-void generate_if_statement() {
+void generate_if_statement(bool easy) {
 	stringstream row;
 	
 	task_rows.clear();
@@ -80,7 +80,11 @@ void generate_if_statement() {
 	task_rows.push_back(row.str());
 	row.str("");
 	task_rows.push_back("int a=0;");
-	row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")) {";
+	if(easy) {
+		row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")) {";
+	} else {
+		row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")" << (rand()/(RAND_MAX/2) ? " ^ ":" | ") << "value) {";
+	}
 	task_rows.push_back(row.str());
 	task_rows.push_back("a=1;");
 	task_rows.push_back("} else {");
@@ -112,21 +116,25 @@ void generate_result_tasks(bool INT, int down_boundary, int up_boundary, bool XO
 		shift_even=rand()/(RAND_MAX/14)+1;
 	} while(shift_odd%2==0 || shift_even%2==1);
 	if(XOR) {
-		row << "int result=(value1<<" << shift_odd << ")^(value2>>" << shift_even << ");";
+		row << "long result=(value1<<" << shift_odd << ")^(value2>>" << shift_even << ");";
 	} else {
-		row << "int result=(value1<<" << shift_odd << ")|(value2>>" << shift_even << ");";
+		row << "long result=(value1<<" << shift_odd << ")|(value2>>" << shift_even << ");";
 	}
 	task_rows.push_back(row.str());
 }
 
-string get_gcc_test_file_result(string variable_name) {
+string get_gcc_test_file_result(string variable_name, bool LONG) {
 	ofstream out("test.c");
 	
 	out << "#include <stdio.h>\nvoid main() {" << endl;
 	for(short i=1;i<task_rows.size();++i) {
 		out << task_rows[i] << endl;
 	}
-	out << "printf(\"%d\", " << variable_name << ");" << endl;
+	if(LONG) {
+		out << "printf(\"%lx\", " << variable_name << ");" << endl;
+	} else {
+		out << "printf(\"%x\", " << variable_name << ");" << endl;
+	}
 	out << "}" << endl;
 	
 	system("gcc test.c");
@@ -155,28 +163,62 @@ void help_writing(int test, short question, string variable_name) {
 	stringstream row;
 	ofstream out;
 	
-	row << test << "/" << question << ".txt";
+	row << "web/" << test << "/" << question << ".txt";
 	write_in_files(row.str());
 	row.str("");
-	row << test << "/" << question << "-res.txt";
+	row << "web/" << test << "/" << question << "-res.txt";
 	out.open(row.str().c_str());
-	out << get_gcc_test_file_result(variable_name);
+	out << get_gcc_test_file_result(variable_name, (question==7 || question==8 || question ==11 || question==12) ? true : false);
 	out.close();
 }
 
 void write_files_for_ruby(int number_of_tests) {
+	stringstream folder;
 	system("mkdir web");
-	system("cd web");
 	
-	ofstream out("count.txt");
+	ofstream out("web/count.txt");
 	out << number_of_tests;
 	out.close();
 	
 	for(int i=1;i<=number_of_tests;++i) {
+		folder << "mkdir web/" << i;
+		system(folder.str().c_str());
+		folder.str("");
+		
 		generate_a_b(true);
 		help_writing(i, 1, "a");
 		
 		generate_a_b(false);
 		help_writing(i, 2, "b");
+		
+		generate_logic_and_xor(true);
+		help_writing(i, 3, "AND");
+		
+		generate_logic_and_xor(true);
+		help_writing(i, 4, "AND");
+		
+		generate_logic_and_xor(false);
+		help_writing(i, 5, "AND");
+		
+		generate_bitwise_one();
+		help_writing(i, 6, "bit");
+		
+		generate_result_tasks(false, 0, 0, true);
+		help_writing(i, 7, "result");
+		
+		generate_result_tasks(true, 100, 500, true);
+		help_writing(i, 8, "result");
+		
+		generate_if_statement(true);
+		help_writing(i, 9, "a");
+		
+		generate_if_statement(false);
+		help_writing(i, 10, "a");
+		
+		generate_result_tasks(true, 500, 1000, true);
+		help_writing(i, 11, "result");
+		
+		generate_result_tasks(true, 0, 5000, false);
+		help_writing(i, 12, "result");
 	}
 }

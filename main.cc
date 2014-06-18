@@ -37,33 +37,7 @@ int main() {
 	clean_up();
 	*/
 	
-	
-	generate_logic_and_xor(false);
-	for(int i=0;i<task_rows.size();++i) {
-		cout << task_rows[i] << endl;
-	}
-	cout << endl;
-	
-	generate_bitwise_one();
-	for(int i=0;i<task_rows.size();++i) {
-		cout << task_rows[i] << endl;
-	}
-	cout << endl;
-	
-	generate_if_statement();
-	for(int i=0;i<task_rows.size();++i) {
-		cout << task_rows[i] << endl;
-	}
-	cout << endl;
-	
-	generate_result_tasks(true, 50, 200, true);
-	for(int i=0;i<task_rows.size();++i) {
-		cout << task_rows[i] << endl;
-	}
-	
-	get_gcc_test_file_result("result");
-	
-	write_files_for_ruby(1);
+	write_files_for_ruby(20);
 	
 	return 0;
 }
