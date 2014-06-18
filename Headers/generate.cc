@@ -119,12 +119,64 @@ void generate_result_tasks(bool INT, int down_boundary, int up_boundary, bool XO
 	task_rows.push_back(row.str());
 }
 
-void get_gcc_test_file_result() {
+string get_gcc_test_file_result(string variable_name) {
 	ofstream out("test.c");
 	
 	out << "#include <stdio.h>\nvoid main() {" << endl;
 	for(short i=1;i<task_rows.size();++i) {
 		out << task_rows[i] << endl;
 	}
+	out << "printf(\"%d\", " << variable_name << ");" << endl;
 	out << "}" << endl;
+	
+	system("gcc test.c");
+	system("./a.out > res.txt");
+	
+	string str;
+	ifstream in("res.txt");
+	in >> str;
+	results.push_back(str);
+	system("rm a.out");
+	system("rm test.c");
+	system("rm res.txt");
+	
+	return str;
+}
+
+void write_in_files(string filename) {
+	ofstream out(filename.c_str());
+	for(short i=0;i<task_rows.size();++i) {
+		out << task_rows[i] << endl;
+	}
+	out.close();
+}
+
+void help_writing(int test, short question, string variable_name) {
+	stringstream row;
+	ofstream out;
+	
+	row << test << "/" << question << ".txt";
+	write_in_files(row.str());
+	row.str("");
+	row << test << "/" << question << "-res.txt";
+	out.open(row.str().c_str());
+	out << get_gcc_test_file_result(variable_name);
+	out.close();
+}
+
+void write_files_for_ruby(int number_of_tests) {
+	system("mkdir web");
+	system("cd web");
+	
+	ofstream out("count.txt");
+	out << number_of_tests;
+	out.close();
+	
+	for(int i=1;i<=number_of_tests;++i) {
+		generate_a_b(true);
+		help_writing(i, 1, "a");
+		
+		generate_a_b(false);
+		help_writing(i, 2, "b");
+	}
 }

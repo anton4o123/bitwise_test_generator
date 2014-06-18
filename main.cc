@@ -7,6 +7,7 @@ TTF_Font* font;
 SDL_Event event;
 SDL_Color textColor={0, 0, 0};
 vector<string> task_rows;
+vector<string> results;
 
 void apply_all() {
 	SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format, 180, 180, 180));
@@ -35,17 +36,7 @@ int main() {
 	
 	clean_up();
 	*/
-	generate_a_b(true);
-	for(int i=0;i<task_rows.size();++i) {
-		cout << task_rows[i] << endl;
-	}
-	cout << endl;
 	
-	generate_a_b(false);
-	for(int i=0;i<task_rows.size();++i) {
-		cout << task_rows[i] << endl;
-	}
-	cout <<  endl;
 	
 	generate_logic_and_xor(false);
 	for(int i=0;i<task_rows.size();++i) {
@@ -70,7 +61,9 @@ int main() {
 		cout << task_rows[i] << endl;
 	}
 	
-	generate_gcc_test_file();
+	get_gcc_test_file_result("result");
+	
+	write_files_for_ruby(1);
 	
 	return 0;
 }
