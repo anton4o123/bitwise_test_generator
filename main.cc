@@ -33,11 +33,11 @@ int main() {
 		SDL_Flip(screen);
 		SDL_Delay(2);
 	}
-	
-	clean_up();
 	*/
+	clean_up();
 	
-	write_files_for_ruby(20);
+	
+	write_files_for_ruby(4);
 	
 	return 0;
 }
