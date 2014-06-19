@@ -19,6 +19,7 @@ const int SCREEN_BPP=32;
 
 extern SDL_Surface* screen;
 extern SDL_Surface* text;
+extern SDL_Surface* numbers;
 
 extern TTF_Font* font;
 
