@@ -1,6 +1,5 @@
 require "cgi"
 require "uri"
-require "pdfkit"
 
 cgi=CGI.new("html4")
 count=1
@@ -211,6 +210,9 @@ while i<=count
 	File.open("#{i}/test_res.html", "w") do |file|
 		file << html_res
 	end
+	
+	`wkhtmltopdf #{i}/test.html #{i}/test.pdf`
+	`wkhtmltopdf #{i}/test_res.html #{i}/test_res.pdf`
 	
 	i+=1
 end
