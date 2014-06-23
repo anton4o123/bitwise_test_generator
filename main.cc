@@ -52,6 +52,8 @@ int main() {
 		return -1;
 	}
 	
+	system("rm -rf web/");
+	
 	apply_all();
 	while(running) {
 		if(SDL_PollEvent(&event)) {

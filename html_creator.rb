@@ -25,7 +25,7 @@ while i<=count
 		
 		k=1
 		File.open("#{i}/#{j}-res.txt") do |file|
-			rows_res[j-i]=file.gets
+			rows_res[j-1]=file.gets
 		end
 		
 		`rm #{i}/#{j}-res.txt`
