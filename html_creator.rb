@@ -1,5 +1,6 @@
 require "cgi"
 require "uri"
+require "pdfkit"
 
 cgi=CGI.new("html4")
 count=1
