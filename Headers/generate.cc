@@ -24,9 +24,9 @@ void generate_a_b(bool a) {
 	
 	task_rows.clear();
 	if(a) {
-		task_rows.push_back("a=?      ........");
+		task_rows.push_back("1. a=?      ........");
 	} else {
-		task_rows.push_back("b=?      ........");
+		task_rows.push_back("2. b=?      ........");
 	}
 	
 	generate_two_easy_hex();
@@ -42,8 +42,9 @@ void generate_a_b(bool a) {
 	task_rows.push_back(row.str());
 }
 
-void generate_logic_and_xor(bool AND) {
+void generate_logic_and_xor(bool AND, short number) {
 	string row_a, row_b;
+	stringstream row;
 	
 	generate_a_b(true);
 	row_a=task_rows.back();
@@ -51,7 +52,8 @@ void generate_logic_and_xor(bool AND) {
 	row_b=task_rows.back();
 	
 	task_rows.clear();
-	task_rows.push_back("AND=?    ........");
+	row << number << ". AND=?    ........";
+	task_rows.push_back(row.str());
 	generate_two_easy_hex();
 	task_rows.push_back(row_a);
 	task_rows.push_back(row_b);
@@ -66,7 +68,7 @@ void generate_bitwise_one() {
 	stringstream row;
 	
 	task_rows.clear();
-	task_rows.push_back("bit=?    ........");
+	task_rows.push_back("6. bit=?    ........");
 	row << "int bit = 0x" << std::hex << (rand()/(RAND_MAX/65536)) << " | (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ");";
 	task_rows.push_back(row.str());
 }
@@ -75,29 +77,33 @@ void generate_if_statement(bool easy) {
 	stringstream row;
 	
 	task_rows.clear();
-	task_rows.push_back("a=?      ........");
+	if(easy) {
+		task_rows.push_back("9. a=?      ........");
+	} else {
+		task_rows.push_back("10. a=?      ........");
+	}
+	
 	row << "long value=0x" << std::hex << (rand()) << ";";
 	task_rows.push_back(row.str());
 	row.str("");
 	task_rows.push_back("int a=0;");
 	if(easy) {
-		row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")) {";
+		row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << "))";
 	} else {
-		row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")" << (rand()/(RAND_MAX/2) ? " ^ ":" | ") << "value) {";
+		row << "if(value & (1<<" << std::dec << (rand()/(RAND_MAX/14)+1) << ")" << (rand()/(RAND_MAX/2) ? " ^ ":" | ") << "value)";
 	}
 	task_rows.push_back(row.str());
-	task_rows.push_back("a=1;");
-	task_rows.push_back("} else {");
-	task_rows.push_back("a=2;");
-	task_rows.push_back("}");
+	task_rows.push_back("a=1; else a=2;");
 }
 
-void generate_result_tasks(bool INT, int down_boundary, int up_boundary, bool XOR) {
+void generate_result_tasks(bool INT, int down_boundary, int up_boundary, bool XOR, short number) {
 	stringstream row;
 	short shift_odd, shift_even;
 	
 	task_rows.clear();
-	task_rows.push_back("result=? ........");
+	row << number << ". result=? ........";
+	task_rows.push_back(row.str());
+	row.str("");
 	if(!INT) {
 		row << "long value1=0x" << std::hex << rand() << ";";
 		task_rows.push_back(row.str());
@@ -168,7 +174,7 @@ void help_writing(int test, short question, string variable_name) {
 	row.str("");
 	row << "web/" << test << "/" << question << "-res.txt";
 	out.open(row.str().c_str());
-	out << get_gcc_test_file_result(variable_name, (question==7 || question==8 || question ==11 || question==12) ? true : false);
+	out << question << ". " << get_gcc_test_file_result(variable_name, (question==7 || question==8 || question ==11 || question==12) ? true : false);
 	out.close();
 }
 
@@ -191,22 +197,22 @@ void write_files_for_ruby(int number_of_tests) {
 		generate_a_b(false);
 		help_writing(i, 2, "b");
 		
-		generate_logic_and_xor(true);
+		generate_logic_and_xor(true, 3);
 		help_writing(i, 3, "AND");
 		
-		generate_logic_and_xor(true);
+		generate_logic_and_xor(true, 4);
 		help_writing(i, 4, "AND");
 		
-		generate_logic_and_xor(false);
+		generate_logic_and_xor(false, 5);
 		help_writing(i, 5, "AND");
 		
 		generate_bitwise_one();
 		help_writing(i, 6, "bit");
 		
-		generate_result_tasks(false, 0, 0, true);
+		generate_result_tasks(false, 0, 0, true, 7);
 		help_writing(i, 7, "result");
 		
-		generate_result_tasks(true, 100, 500, true);
+		generate_result_tasks(true, 100, 500, true, 8);
 		help_writing(i, 8, "result");
 		
 		generate_if_statement(true);
@@ -215,10 +221,10 @@ void write_files_for_ruby(int number_of_tests) {
 		generate_if_statement(false);
 		help_writing(i, 10, "a");
 		
-		generate_result_tasks(true, 500, 1000, true);
+		generate_result_tasks(true, 500, 1000, true, 11);
 		help_writing(i, 11, "result");
 		
-		generate_result_tasks(true, 0, 5000, false);
+		generate_result_tasks(true, 0, 5000, false, 12);
 		help_writing(i, 12, "result");
 	}
 }

@@ -1,3 +1,4 @@
+#coding: UTF-8
 require "cgi"
 require "uri"
 
@@ -36,12 +37,18 @@ while i<=count
 	html=cgi.html{
 		"\n"
 		cgi.head{
+			"<meta charset='utf-8'>"+
 			cgi.title{"Test #{i}"}
 		}+
 		
 		cgi.body{
-			j=1
-			cgi.table("border"=>"1"){
+			cgi.h6{
+				cgi.p{"ТУЕС към ТУ-София"}+
+				cgi.p{"Тест побитови операции"}+
+				cgi.p{"Вариант #{i}"}
+			}+
+			
+			cgi.table{
 				cgi.tr {
 					cgi.td {
 						cgi.pre{"#{rows[[0,0]]}"}+
@@ -108,20 +115,14 @@ while i<=count
 						cgi.pre{"#{rows[[8,1]]}"}+
 						cgi.pre{"#{rows[[8,2]]}"}+
 						cgi.pre{"#{rows[[8,3]]}"}+
-						cgi.pre{"#{rows[[8,4]]}"}+
-						cgi.pre{"#{rows[[8,5]]}"}+
-						cgi.pre{"#{rows[[8,6]]}"}+
-						cgi.pre{"#{rows[[8,7]]}"}
+						cgi.pre{"#{rows[[8,4]]}"}
 					}+
 					cgi.td {
 						cgi.pre{"#{rows[[9,0]]}"}+
 						cgi.pre{"#{rows[[9,1]]}"}+
 						cgi.pre{"#{rows[[9,2]]}"}+
 						cgi.pre{"#{rows[[9,3]]}"}+
-						cgi.pre{"#{rows[[9,4]]}"}+
-						cgi.pre{"#{rows[[9,5]]}"}+
-						cgi.pre{"#{rows[[9,6]]}"}+
-						cgi.pre{"#{rows[[9,7]]}"}
+						cgi.pre{"#{rows[[9,4]]}"}
 					}
 				}+
 				cgi.tr {
@@ -145,11 +146,15 @@ while i<=count
 	html_res=cgi.html{
 		"\n"
 		cgi.head{
+			"<meta charset='utf-8'>"+
 			cgi.title{"Test #{i} Results"}
 		}+
 		
 		cgi.body{
-			j=1
+			cgi.h2{"ТУЕС към ТУ-София"}+
+			cgi.h3{"Тест побитови операции"}+
+			cgi.h3{"Вариант #{i} Отговори"}+
+			
 			cgi.table("border"=>"1"){
 				cgi.tr {
 					cgi.td {
