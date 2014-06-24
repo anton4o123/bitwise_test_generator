@@ -1,0 +1,11 @@
+1 - Generating tests
+Descr. - The program must generate a desired number of tests with tasks of different difficulty.
+
+2 - Exporting to HTML
+Descr. - The program must export and format the tasks in human-readable HTML pages.
+
+3 - Exproting to PDF
+Descr. - The program will convert HTML pages to PDF documents.
+
+4 - Interface
+Descr. - The program must have a simple human-understandable GUI.
