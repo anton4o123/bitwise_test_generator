@@ -43,7 +43,9 @@ bool start_SDL() {
 
 bool load_files() {
 	text=TTF_RenderText_Solid(font, "Number of required tests:", textColor);
-	if(text==NULL) {
+	manual=TTF_RenderText_Solid(font, "Hit enter to generate", textColor);
+	indication_msg=TTF_RenderText_Solid(font, "", textColor);
+	if(text==NULL || manual==NULL) {
 		return false;
 	}
 	
@@ -52,6 +54,7 @@ bool load_files() {
 
 void clean_up() {
 	TTF_CloseFont(font);
+	SDL_KillThread(thread);
 
 	SDL_EnableUNICODE(SDL_DISABLE);
 	TTF_Quit();

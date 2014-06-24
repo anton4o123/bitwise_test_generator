@@ -4,6 +4,7 @@
 #include "SDL/SDL.h"
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_thread.h>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -20,6 +21,10 @@ const int SCREEN_BPP=32;
 extern SDL_Surface* screen;
 extern SDL_Surface* text;
 extern SDL_Surface* numbers;
+extern SDL_Surface* manual;
+extern SDL_Surface* indication_msg;
+
+extern SDL_Thread* thread;
 
 extern TTF_Font* font;
 
